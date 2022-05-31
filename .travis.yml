@@ -1,25 +1,16 @@
 language: node_js
 node_js:
-  - "14"
+  - 10
+
 services:
   - docker
-before_install:
-  - cd backend
-  - docker build . -t example
-  - docker images
 
-install:
-  - npm install
 script:
-  - "true"
-after_success:
-  - npm run build
-  - cd ..
-  - bash ./deploy.sh
+  - docker build -t react-example:latest .
+  - docker images
 
 deploy:
   provider: script
   script: bash docker_push
   on:
-    branch: main
-asdasd
+    branch: dockerhub
