@@ -22,3 +22,4 @@ deploy:
   script: bash docker_push
   on:
     branch: main
+asdasd
