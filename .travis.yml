@@ -5,10 +5,16 @@ services:
   - docker
 before_install:
   - cd backend
-  - docker build -t example:latest .
+  - docker build . -t example
   - docker images
-deploy:
-  provider: script
-  script: bash docker_push
-  on:
-  branch: master
+  - docker tag karmester/example:latest
+  - docker push karmester/example:latest
+
+install:
+  - npm install
+script:
+  - "true"
+after_success:
+  - npm run build
+  - cd ..
+  - bash ./deploy.sh
