@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "12.16"
+addons:
+  ssh_known_hosts: <your droplet ip address>
+before_install:
+  - cd backend
+install:
+  - npm install
+script:
+  - "true"
+after_success:
+  - npm run build
+  - cd ..
+  - bash ./deploy.sh
