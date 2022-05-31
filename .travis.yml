@@ -7,8 +7,6 @@ before_install:
   - cd backend
   - docker build . -t example
   - docker images
-  - docker tag karmester/example:latest
-  - docker push karmester/example:latest
 
 install:
   - npm install
@@ -18,3 +16,9 @@ after_success:
   - npm run build
   - cd ..
   - bash ./deploy.sh
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: main
