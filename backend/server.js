@@ -1,10 +1,10 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const app = require('./app')
-const port = process.env.PORT || 4001;
+require("dotenv").config();
+const mongoose = require("mongoose");
+const app = require("./app");
+const port = 4000;
 
-mongoose.connect('mongodb://localhost:27017/templateDB', () => {
-    app.listen(port, () => {
-        console.log(`Listening at ${port}`)
-    });
+mongoose.connect(process.env.MONGO, () => {
+	app.listen(port, () => {
+		console.log(`Listening at ${port}`);
+	});
 });
