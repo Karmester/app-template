@@ -1,16 +1,31 @@
 language: node_js
 node_js:
-  - 10
+  - 14
+
+# safelist
+branches:
+  only:
+    - master
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
 
 services:
   - docker
 
-script:
-  - docker build -t react-example:latest .
+before_install:
+  - cd backend
+  - npm install
+  - docker build . -t movietest
   - docker images
+  - docker tag movietest karmester/movietest:latest
+  - docker login -u "karmester" --password ${DHUB_PASS}
+  - docker push karmester/movietest:latest  
 
-deploy:
-  provider: script
-  script: bash docker_push
-  on:
-    branch: dockerhub
+script:
+  - npm test
