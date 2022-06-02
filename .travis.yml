@@ -5,15 +5,15 @@ node_js:
 # safelist
 branches:
   only:
-    - master
+    - main
 
 on:
   pull_request:
     branches:
-      - master
+      - main
   push:
     branches:
-      - master
+      - main
 
 services:
   - docker
@@ -25,7 +25,7 @@ before_install:
   - docker images
   - docker tag movietest karmester/movietest:latest
   - docker login -u "karmester" --password ${DHUB_PASS}
-  - docker push karmester/movietest:latest  
+  - docker push karmester/movietest:latest
 
 script:
   - npm test
